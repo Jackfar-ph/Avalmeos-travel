@@ -350,3 +350,4 @@ closeBtn.addEventListener('click', closeMenu);
 mobileLinks.forEach(link => {
     link.addEventListener('click', closeMenu);
 });
+
