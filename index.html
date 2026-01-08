@@ -81,11 +81,16 @@ section.visible {
 </button>
 
 <div id="mobile-menu" class="fixed inset-0 bg-white z-[100] transform translate-x-full transition-transform duration-300 lg:hidden flex flex-col items-center justify-center gap-10">
-    <button id="close-btn" class="absolute top-10 right-10 text-4xl text-[#1a4d41]">✕</button>
-    <a href="#home" class="mobile-link text-3xl font-bold text-[#1a4d41]">HOME</a>
-    <a href="#destinations" class="mobile-link text-3xl font-bold text-[#1a4d41]">DESTINATION</a>
-    <a href="#packages" class="mobile-link text-3xl font-bold text-[#1a4d41]">TRAVEL PACKAGE</a>
-    <a href="#contact" class="mobile-link text-3xl font-bold text-[#1a4d41]">CONTACT</a>
+    <button id="close-btn" class="absolute top-8 right-8 text-[#1a4d41] focus:outline-none">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+
+    <a href="#home" class="mobile-link text-3xl font-bold text-[#1a4d41] hover:text-orange-500">HOME</a>
+    <a href="#destinations" class="mobile-link text-3xl font-bold text-[#1a4d41] hover:text-orange-500">DESTINATION</a>
+    <a href="#packages" class="mobile-link text-3xl font-bold text-[#1a4d41] hover:text-orange-500">TRAVEL PACKAGE</a>
+    <a href="#contact" class="mobile-link text-3xl font-bold text-[#1a4d41] hover:text-orange-500">CONTACT</a>
 </div>
     </div>
 </nav>
