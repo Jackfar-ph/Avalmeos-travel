@@ -13,17 +13,17 @@ const sectionObserver = new IntersectionObserver((entries) => {
 sections.forEach(s => sectionObserver.observe(s));
 
 // 2. Scroll Spy Logic
-// Use a throttle function 
+
 window.addEventListener("scroll", () => {
     let current = "";
     const scrollPosition = window.scrollY || window.pageYOffset;
 
     sections.forEach((section) => {
         const sectionTop = section.offsetTop;
-        // Trigger 200px before reaching the section for a smoother transition
+        
         if (scrollPosition >= sectionTop - 200) {
             const id = section.getAttribute("id");
-            // Only update 'current' if the ID actually exists in your Nav menu links
+            
             if (document.querySelector(`nav ul li a[href="#${id}"]`)) {
                 current = id;
             }
@@ -32,7 +32,7 @@ window.addEventListener("scroll", () => {
 
     navLinks.forEach((link) => {
         link.classList.remove("nav-link-active");
-        // Only add the class if the link's href matches the current active section ID
+        
         if (current && link.getAttribute("href") === `#${current}`) {
             link.classList.add("nav-link-active");
         }
@@ -327,5 +327,27 @@ document.getElementById('inquiry-form').addEventListener('submit', function(e) {
     // Hide the inputs and show the success message
     document.getElementById('modal-form-content').classList.add('hidden');
     document.getElementById('modal-success-content').classList.remove('hidden');
+});
 
+const menuBtn = document.getElementById('menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileLinks = document.querySelectorAll('.mobile-link');
+
+// Toggle menu open/close
+menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('translate-x-full');
+    // Optional: Change icon to an 'X' when open
+    const icon = document.getElementById('menu-icon');
+    if (mobileMenu.classList.contains('translate-x-full')) {
+        icon.setAttribute('d', 'M4 6h16M4 12h16m4 6h16');
+    } else {
+        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+    }
+});
+
+// Close menu when a link is clicked
+mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.add('translate-x-full');
+    });
 });
