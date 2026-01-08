@@ -330,15 +330,17 @@ document.getElementById('inquiry-form').addEventListener('submit', function(e) {
 });
 
 const menuBtn = document.getElementById('menu-btn');
+const closeBtn = document.getElementById('close-btn');
 const mobileMenu = document.getElementById('mobile-menu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
-// Toggle Open/Close
-menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('translate-x-full');
-});
+// Function to open/close menu
+const toggleMenu = () => mobileMenu.classList.toggle('translate-x-full');
 
-// Close menu when clicking a link (so it doesn't stay open after you navigate)
+menuBtn.addEventListener('click', toggleMenu);
+closeBtn.addEventListener('click', toggleMenu);
+
+// Close menu when clicking a link
 mobileLinks.forEach(link => {
     link.addEventListener('click', () => {
         mobileMenu.classList.add('translate-x-full');
