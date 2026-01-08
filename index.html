@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avalmeo's | Discover Philippines</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .font-header { font-family: 'Montserrat', sans-serif; }
+        html { scroll-behavior: smooth; }
+        .nav-active {
+    background-color: white !important;
+    padding: 10px 0 !important;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-link-active {
+    border-bottom: 2px solid #1a4d41 !important;
+    padding-bottom: 4px !important;
+    color: #1a4d41 !important;
+}
+
+    </style>
+</head>
+
+<body class="bg-[#f1e9d2] text-[#1a4d41]">
+
+<nav class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+    <div class="max-w-[1440px] mx-auto px-8 md:px-12 py-5 flex items-center justify-between">
+        
+        <div class="flex items-center min-w-fit">
+            <h1 class="font-header font-900 text-2xl lg:text-3xl text-[#1a4d41] tracking-tighter">
+                AVALMEO'S
+            </h1>
+        </div>
+
+        <div class="hidden md:flex flex-1 max-w-xl mx-10 items-center gap-4 relative group">
+            <div class="relative flex-1">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </span>
+                <input type="text" id="destination-search" placeholder="Search destinations..." 
+                    class="w-full bg-gray-100 rounded-full py-3 px-12 text-base focus:ring-2 focus:ring-[#1a4d41] outline-none transition-all">
+                
+                <div id="suggestion-box" class="absolute top-full left-0 w-full bg-white mt-2 rounded-2xl shadow-xl border border-gray-100 hidden overflow-hidden z-[100]"></div>
+            </div>
+
+            <button id="currency-toggle" class="whitespace-nowrap bg-[#1a4d41] text-white px-4 py-2 rounded-full text-xs font-bold transition-all hover:bg-orange-500 shadow-md">
+                PHP ₱
+            </button>
+        </div>
+
+        <ul class="hidden lg:flex items-center gap-12 font-bold text-base uppercase tracking-widest">
+            <li><a href="#home" class="hover:text-green-700 transition pb-1">Home</a></li> 
+            <li><a href="#destinations" class="hover:text-green-700 transition pb-1">Destination</a></li>
+            <li><a href="#packages" class="hover:text-green-700 transition pb-1">Travel Package</a></li>
+            <li><a href="#contact" class="hover:text-green-700 transition pb-1">Contact</a></li>
+        </ul>
+
+    </div>
+</nav>
+
+    <section id="home" class="relative h-screen w-full overflow-hidden flex items-center">
+        <div class="absolute inset-0 z-0">
+            <img id="hero-main" src="/Picture/Cebu City.jpg" alt="Hero Background" class="w-full h-full object-cover brightness-75 bg-gray-300">
+        </div>
+
+        <div class="relative z-10 px-[8%] text-white">
+            <h1 class="font-header leading-[0.85] uppercase">
+                <span class="block text-4xl md:text-6xl font-700">DISCOVER</span>
+                <span class="block text-6xl md:text-9xl font-900 tracking-tighter">PHILIPPINES</span>
+            </h1>
+            <p class="mt-6 text-lg md:text-xl max-w-lg opacity-90">
+                Choose Destinations, plan activities, and book your perfect travel experience—all in one place!
+            </p>
+
+            <button onclick="document.getElementById('destinations').scrollIntoView({ behavior: 'smooth' })" 
+            class="mt-8 bg-[#1a3020] hover:bg-black text-white px-10 py-4 rounded-lg font-bold transition-all transform hover:scale-105">
+        Explore more
+            </button>
+        </div>
+
+        <div class="absolute right-[5%] top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-4 z-20">
+            <img src="/Picture/Cebu City.jpg" data-src="/Picture/Cebu City.jpg" class="nav-thumb w-24 h-16 rounded-lg border-2 border-white cursor-pointer transition-all object-cover">
+            <img src="/Picture/Old Manila.jpg" data-src="/Picture/Old Manila.jpg" class="nav-thumb w-24 h-16 rounded-lg border-2 border-transparent opacity-60 cursor-pointer transition-all object-cover">
+            <img src="/Picture/Baguio.jpg" data-src="/Picture/Baguio.jpg" class="nav-thumb w-24 h-16 rounded-lg border-2 border-transparent opacity-60 cursor-pointer transition-all object-cover">
+            <img src="/Picture/Davao.jpg" data-src="/Picture/Davao.jpg" class="nav-thumb w-24 h-16 rounded-lg border-2 border-transparent opacity-60 cursor-pointer transition-all object-cover">
+            <img src="/Picture/Puerto Princesa.jpg" data-src="/Picture/Puerto Princesa.jpg" class="nav-thumb w-24 h-16 rounded-lg border-2 border-transparent opacity-60 cursor-pointer transition-all object-cover">
+            <img src="/Picture/Iloilo.jpg" data-src="/Picture/Iloilo.jpg" class="nav-thumb w-24 h-16 rounded-lg border-2 border-transparent opacity-60 cursor-pointer transition-all object-cover">
+        </div>
+    </section>
+
+    <section id="destinations" class="py-24 px-[8%]">
+    <div class="flex justify-between items-end mb-12">
+        <div>
+            <h2 class="font-header text-4xl lg:text-5xl text-[#1a4d41] uppercase">Philippines' must-visit cities</h2>
+            <p class="text-gray-500 mt-2">Explore the urban heart and cultural soul of the islands.</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        
+        <div onclick="window.location.href='package-details.html?city=Cebu City'" class="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-lg">
+            <img src="/Picture/Cebu City.jpg" alt="Cebu City" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div class="absolute bottom-5 left-5 text-white">
+                <p class="text-xs uppercase tracking-widest opacity-80">Visayas</p>
+                <h3 class="font-bold text-lg">Cebu City</h3>
+            </div>
+        </div>
+
+        <div onclick="window.location.href='package-details.html?city=Manila'" class="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-lg">
+            <img src="/Picture/Old Manila.jpg" alt="Manila" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div class="absolute bottom-5 left-5 text-white">
+                <p class="text-xs uppercase tracking-widest opacity-80">Luzon</p>
+                <h3 class="font-bold text-lg">Manila</h3>
+            </div>
+        </div>
+
+        <div onclick="window.location.href='package-details.html?city=Baguio'" class="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-lg">
+            <img src="/Picture/Baguio.jpg" alt="Baguio" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div class="absolute bottom-5 left-5 text-white">
+                <p class="text-xs uppercase tracking-widest opacity-80">Luzon</p>
+                <h3 class="font-bold text-lg">Baguio</h3>
+            </div>
+        </div>
+
+        <div onclick="window.location.href='package-details.html?city=Davao City'" class="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-lg">
+            <img src="/Picture/Davao.jpg" alt="Davao" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div class="absolute bottom-5 left-5 text-white">
+                <p class="text-xs uppercase tracking-widest opacity-80">Mindanao</p>
+                <h3 class="font-bold text-lg">Davao City</h3>
+            </div>
+        </div>
+
+        <div onclick="window.location.href='package-details.html?city=Puerto Princesa'" class="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-lg">
+            <img src="/Picture/Puerto Princesa.jpg" alt="Puerto Princesa" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div class="absolute bottom-5 left-5 text-white">
+                <p class="text-xs uppercase tracking-widest opacity-80">Luzon</p>
+                <h3 class="font-bold text-lg">Puerto Princesa</h3>
+            </div>
+        </div>
+
+        <div onclick="window.location.href='package-details.html?city=Iloilo'" class="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-lg">
+            <img src="/Picture/Iloilo.jpg" alt="Iloilo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div class="absolute bottom-5 left-5 text-white">
+                <p class="text-xs uppercase tracking-widest opacity-80">Visayas</p>
+                <h3 class="font-bold text-lg">Iloilo City</h3>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+    <section id="packages" class="py-24 bg-white px-[8%]">
+    <div class="flex justify-between items-end mb-12">
+        <div>
+            <h2 class="font-header text-4xl lg:text-5xl text-[#1a4d41] uppercase">Featured Tour Packages</h2>
+            <p class="text-gray-500 mt-2">All-inclusive deals: Accommodation, Round-trip Transfers, and Guided Tours.</p>
+        </div>
+        <button class="hidden md:block text-[#1a4d41] font-bold border-2 border-[#1a4d41] px-6 py-2 rounded-full hover:bg-[#1a4d41] hover:text-white transition">View All Deals</button>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+        
+        <div onclick="showActivities('Cebu City')" class="group cursor-pointer bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+            <div class="relative overflow-hidden aspect-[4/5]">
+                <div class="absolute top-3 left-3 z-10 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">3D2N All-In</div>
+                <img src="/Picture/Cebu City.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-4">
+                <h3 class="font-bold text-base leading-tight">Cebu City Package Tour</h3>
+                <p class="text-xs text-gray-400 mt-1 italic">Incl: Sky Experience, Temple of Leah</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gray-400">Starts at</span>
+                    <span class="price-value text-lg font-black text-[#1a4d41]" data-usd="143.41">₱8,500</span>
+                </div>
+            </div>
+        </div>
+
+        <div onclick="showActivities('Manila')" class="group cursor-pointer bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+            <div class="relative overflow-hidden aspect-[4/5]">
+                <div class="absolute top-3 left-3 z-10 bg-[#1a4d41] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Full Day</div>
+                <img src="/Picture/Old Manila.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-4">
+                <h3 class="font-bold text-base leading-tight">Old Manila Heritage Tour</h3>
+                <p class="text-xs text-gray-400 mt-1 italic">Incl: Intramuros, National Museum</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gray-400">Starts at</span>
+                    <span class="price-value text-lg font-black text-[#1a4d41]" data-usd="40.51">₱2,400</span>
+                </div>
+            </div>
+        </div>
+
+        <div onclick="showActivities('Baguio')" class="group cursor-pointer bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+            <div class="relative overflow-hidden aspect-[4/5]">
+                <div class="absolute top-3 left-3 z-10 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">3D2N Escape</div>
+                <img src="/Picture/Baguio.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-4">
+                <h3 class="font-bold text-base leading-tight">Baguio City Package</h3>
+                <p class="text-xs text-gray-400 mt-1 italic">Incl: Camp John Hay, Mines View</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gray-400">Starts at</span>
+                    <span class="price-value text-lg font-black text-[#1a4d41]" data-usd="99.58">₱5,900</span>
+                </div>
+            </div>
+        </div>
+
+        <div onclick="showActivities('Davao City')" class="group cursor-pointer bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+            <div class="relative overflow-hidden aspect-[4/5]">
+                <div class="absolute top-3 left-3 z-10 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Adventure</div>
+                <img src="/Picture/Davao.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-4">
+                <h3 class="font-bold text-base leading-tight">Davao Highland Tour</h3>
+                <p class="text-xs text-gray-400 mt-1 italic">Incl: Malagos Garden, Jack's Ridge</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gray-400">Starts at</span>
+                    <span class="price-value text-lg font-black text-[#1a4d41]" data-usd="70.89">₱4,200</span>
+                </div>
+            </div>
+        </div>
+
+        <div onclick="showActivities('Puerto Princesa')" class="group cursor-pointer bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+            <div class="relative overflow-hidden aspect-[4/5]">
+                <div class="absolute top-3 left-3 z-10 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Nature Escape</div>
+                <img src="/Picture/Puerto Princesa.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-4">
+                <h3 class="font-bold text-base leading-tight">Puerto Princesa Package</h3>
+                <p class="text-xs text-gray-400 mt-1 italic">Incl: Underground River, Honda Bay</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gray-400">Starts at</span>
+                    <span class="price-value text-lg font-black text-[#1a4d41]" data-usd="121.52">₱7,200</span>
+                </div>
+            </div>
+        </div>
+
+        <div onclick="showActivities('Iloilo')" class="group cursor-pointer bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+            <div class="relative overflow-hidden aspect-[4/5]">
+                <div class="absolute top-3 left-3 z-10 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Islands</div>
+                <img src="/Picture/Iloilo.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-4">
+                <h3 class="font-bold text-base leading-tight">Iloilo City & Gigantes</h3>
+                <p class="text-xs text-gray-400 mt-1 italic">Incl: Molo Mansion, Islas Gigantes</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gray-400">Starts at</span>
+                    <span class="price-value text-lg font-black text-[#1a4d41]" data-usd="109.70">₱6,500</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div id="activities-display" class="hidden mt-12 p-10 bg-gray-50 rounded-3xl border-2 border-[#1a4d41]/10 shadow-inner transition-all duration-500">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h3 id="selected-city-name" class="font-header text-3xl text-[#1a4d41] uppercase font-bold"></h3>
+                <p class="text-gray-400">Explore specific activities or book the full package below</p>
+            </div>
+            <button onclick="closeActivities()" class="text-gray-400 hover:text-red-500 font-bold border-2 border-gray-100 rounded-full px-4 py-1">✕ Close</button>
+        </div>
+        
+        <div id="activities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            </div>
+    </div>
+
+    <section id="tips" class="py-20 px-[8%]">
+    <div class="max-w-[1440px] mx-auto">
+        <h2 class="font-header text-3xl mb-8 text-[#1a4d41]">Travel tips</h2>
+        
+        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="md:col-span-2">
+                    <h3 class="font-bold text-xl mb-6">About Philippines</h3>
+                    <div class="space-y-6 text-gray-600 leading-relaxed">
+                        <p>
+                            With over 7,000 islands that make up the archipelago of the Philippines, a constant challenge 
+                            for travelers is to figure out where to explore first. One thing's for sure — there's something to 
+                            see for every type of traveler.
+                        </p>
+                        <p>
+                            History buffs can make their way to colonial Spanish heritage sites in Old Manila, nestled in 
+                            the south of Luzon - one of the Philippines' three major islands. Cliff jumping and other 
+                            exciting water sports await adrenaline junkies in Puerto Princesa, and hardcore beach babies 
+                            will have their fill of sand between their toes with a visit to any of Iloilo's homey towns. 
+                            With so much to see and do, the Philippines can easily become your next favorite tropical 
+                            paradise.
+                        </p>
+                    </div>
+
+                    <div class="mt-12 grid grid-cols-2 gap-8 pt-8 border-t border-gray-100">
+                        <div>
+                            <h4 class="font-bold mb-2">General info</h4>
+                            <p class="text-sm text-gray-500 uppercase tracking-wider mb-1">Currency</p>
+                            <p class="font-semibold">Philippine Peso</p>
+                            <p class="text-xs text-gray-400">1USD = 59.25PHP</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2 opacity-0">Hidden</h4> <p class="text-sm text-gray-500 uppercase tracking-wider mb-1">Language(s)</p>
+                            <p class="font-semibold">English, Filipino</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-center h-full min-h-[300px]">
+                    <div id="map" class="w-full h-[300px] rounded-2xl shadow-md border border-gray-100 z-0"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</section>
+    <section id="contact" class="py-20 px-[8%] bg-[#1a4d41] text-white">
+        <div class="grid md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="font-header text-4xl mb-6 uppercase">Plan Your Trip With Us</h2>
+                <p class="opacity-80 mb-8">Reach out for customized travel packages and local guide assistance.</p>
+                <div class="space-y-4">
+                    <p class="flex items-center gap-4"><span>📍</span> Plaridel, Central Luzon, Philippines</p>
+                    <p class="flex items-center gap-4"><span>📧</span> contact@avalmeos.com</p>
+                </div>
+            </div>
+            <form class="space-y-4">
+                <input type="text" placeholder="Your Name" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:bg-white/20">
+                <textarea placeholder="Message" rows="4" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:bg-white/20"></textarea>
+                <button type="button" class="bg-orange-500 w-full py-4 rounded-lg font-bold hover:bg-orange-600 transition">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-sm border-t border-gray-200 opacity-60">
+        &copy; 2014-2026 Avalmeo's Travel. All rights reserved.
+    </footer>
+
+<div id="booking-modal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black">✕</button>
+        
+        <div id="modal-form-content">
+            <h2 class="font-header text-2xl text-[#1a4d41] uppercase font-bold">Reserve Your Spot</h2>
+            <p class="text-gray-500 text-sm mb-6">Enter your details and our agent will contact you within 24 hours.</p>
+            
+            <form id="inquiry-form" class="space-y-4">
+                <input type="text" placeholder="Full Name" required 
+                    class="w-full p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#1a4d41] outline-none">
+                
+                <input type="email" placeholder="Email Address" required 
+                    class="w-full p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#1a4d41] outline-none">
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="date" required 
+                        class="p-3 rounded-xl border border-gray-200 outline-none text-gray-500">
+                    <input type="number" placeholder="Guests" min="1" required 
+                        class="p-3 rounded-xl border border-gray-200 outline-none">
+                </div>
+                
+                <button type="submit" class="w-full bg-orange-600 text-white font-bold py-4 rounded-xl hover:bg-orange-700 transition shadow-lg">
+                    Confirm Inquiry
+                </button>
+            </form>
+        </div>
+
+        <div id="modal-success-content" class="hidden text-center py-10">
+            <div class="text-6xl mb-4">✅</div>
+            <h2 class="font-header text-2xl text-[#1a4d41] uppercase font-bold">Thank You!</h2>
+            <p class="text-gray-500 mt-2">Your inquiry has been sent successfully.<br>We will contact you as soon as possible.</p>
+            <button onclick="closeModal()" class="mt-8 bg-[#1a4d41] text-white px-8 py-3 rounded-xl font-bold">Close</button>
+        </div>
+    </div>
+</div>
+
+
+    
+    <script src="script.js"></script>
+
+   
+</body>
+</html>
