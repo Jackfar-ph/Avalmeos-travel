@@ -334,17 +334,19 @@ const closeBtn = document.getElementById('close-btn');
 const mobileMenu = document.getElementById('mobile-menu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
-// Function to open/close
-const toggleMenu = () => {
-    mobileMenu.classList.toggle('translate-x-full');
-    // This line removes the nav background so it doesn't "float" over the menu
-    document.body.classList.toggle('menu-open'); 
+// Open Menu
+menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.remove('translate-x-full');
+});
+
+// Close Menu function
+const closeMenu = () => {
+    mobileMenu.classList.add('translate-x-full');
 };
 
-menuBtn.addEventListener('click', toggleMenu);
-closeBtn.addEventListener('click', toggleMenu);
+closeBtn.addEventListener('click', closeMenu);
 
-// Close menu when clicking a link
+// Close when clicking a link
 mobileLinks.forEach(link => {
-    link.addEventListener('click', toggleMenu);
+    link.addEventListener('click', closeMenu);
 });
