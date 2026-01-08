@@ -330,23 +330,21 @@ document.getElementById('inquiry-form').addEventListener('submit', function(e) {
 });
 
 const menuBtn = document.getElementById('menu-btn');
-const closeBtn = document.getElementById('close-btn'); // New close button
+const closeBtn = document.getElementById('close-btn');
 const mobileMenu = document.getElementById('mobile-menu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
-// Open menu
-menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.remove('translate-x-full');
-});
-
-// Close menu
-const closeMenu = () => {
-    mobileMenu.classList.add('translate-x-full');
+// Function to open/close
+const toggleMenu = () => {
+    mobileMenu.classList.toggle('translate-x-full');
+    // This line removes the nav background so it doesn't "float" over the menu
+    document.body.classList.toggle('menu-open'); 
 };
 
-closeBtn.addEventListener('click', closeMenu);
+menuBtn.addEventListener('click', toggleMenu);
+closeBtn.addEventListener('click', toggleMenu);
 
-// Also close menu when a link is clicked
+// Close menu when clicking a link
 mobileLinks.forEach(link => {
-    link.addEventListener('click', closeMenu);
+    link.addEventListener('click', toggleMenu);
 });
