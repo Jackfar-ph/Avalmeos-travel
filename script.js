@@ -333,19 +333,12 @@ const menuBtn = document.getElementById('menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
-// Toggle menu open/close
+// Toggle Open/Close
 menuBtn.addEventListener('click', () => {
     mobileMenu.classList.toggle('translate-x-full');
-    // Optional: Change icon to an 'X' when open
-    const icon = document.getElementById('menu-icon');
-    if (mobileMenu.classList.contains('translate-x-full')) {
-        icon.setAttribute('d', 'M4 6h16M4 12h16m4 6h16');
-    } else {
-        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
-    }
 });
 
-// Close menu when a link is clicked
+// Close menu when clicking a link (so it doesn't stay open after you navigate)
 mobileLinks.forEach(link => {
     link.addEventListener('click', () => {
         mobileMenu.classList.add('translate-x-full');
