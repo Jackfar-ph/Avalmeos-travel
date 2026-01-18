@@ -1,7 +1,13 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; 
+}
+
 /* --- Global Styles --- */
 body { 
     font-family: 'Poppins', sans-serif; 
 }
+
 /* Headers and Titles */
 h1, h2, .font-header {
     font-family: 'Montserrat', sans-serif;

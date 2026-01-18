@@ -1,19 +1,29 @@
 <section id="contact" class="py-20 px-[8%] bg-[#1a4d41] text-white">
-        <div class="grid md:grid-cols-2 gap-12">
-            <div>
-                <h2 class="font-header text-4xl mb-6 uppercase">Plan Your Trip With Us</h2>
-                <p class="opacity-80 mb-8">Reach out for customized travel packages and local guide assistance.</p>
-                <div class="space-y-4">
-                    <p class="flex items-center gap-4"><span>📍</span> Plaridel, Central Luzon, Philippines</p>
-                    <p class="flex items-center gap-4"><span>📧</span> contact@avalmeos.com</p>
-                </div>
+    <div class="grid md:grid-cols-2 gap-12">
+        <div>
+            <h2 class="font-header text-4xl mb-6 uppercase">Plan Your Trip With Us</h2>
+            <p class="opacity-80 mb-8">Reach out for customized travel packages and local guide assistance.</p>
+            <div class="space-y-4">
+                <p class="flex items-center gap-4"><span>📍</span> Plaridel, Central Luzon, Philippines</p>
+                <p class="flex items-center gap-4"><span>📧</span> contact@avalmeos.com</p>
             </div>
-            <form class="space-y-4">
-                <input type="text" placeholder="Your Name" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:bg-white/20">
-                <textarea placeholder="Message" rows="4" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:bg-white/20"></textarea>
-                <button type="button" class="bg-orange-500 w-full py-4 rounded-lg font-bold hover:bg-orange-600 transition">Send Message</button>
+        </div>
+
+        <div id="modal-form-content">
+            <form id="inquiry-form" class="space-y-4">
+                <input type="text" required placeholder="Your Name" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:bg-white/20">
+                <textarea required placeholder="Message" rows="4" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:bg-white/20"></textarea>
+                <button type="submit" class="bg-orange-500 w-full py-4 rounded-lg font-bold hover:bg-orange-600 transition">
+                    Send Message
+                </button>
             </form>
         </div>
+
+        <div id="modal-success-content" class="hidden text-center py-10 bg-white/10 rounded-xl border border-white/20">
+            <h3 class="text-2xl font-bold text-orange-400 mb-2">Message Sent!</h3>
+            <p class="opacity-80">We'll get back to you within 24 hours.</p>
+        </div>
+    </div>
 </section>
 
 <footer class="py-10 text-center text-sm opacity-60">
