@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <div id="modal-form-content">
+        <div id="contact-form-container">
             <form id="inquiry-form" class="space-y-4">
                 <input type="text" required placeholder="Your Name" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:bg-white/20">
                 <textarea required placeholder="Message" rows="4" class="w-full p-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:bg-white/20"></textarea>
@@ -19,7 +19,7 @@
             </form>
         </div>
 
-        <div id="modal-success-content" class="hidden text-center py-10 bg-white/10 rounded-xl border border-white/20">
+        <div id="contact-success-content" class="hidden text-center py-10 bg-white/10 rounded-xl border border-white/20">
             <h3 class="text-2xl font-bold text-orange-400 mb-2">Message Sent!</h3>
             <p class="opacity-80">We'll get back to you within 24 hours.</p>
         </div>
@@ -33,14 +33,21 @@
 <div id="booking-modal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-lg w-full p-8 relative text-[#1a4d41]">
         <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 text-xl">✕</button>
+        
         <div id="modal-form-content">
             <h2 class="font-header text-2xl mb-2">Book Your Trip</h2>
             <p class="text-gray-500 mb-6 text-sm">Fill out the form to confirm your reservation.</p>
-            <form class="space-y-4">
-                <input type="text" placeholder="Full Name" class="w-full p-3 border rounded-xl">
-                <input type="date" class="w-full p-3 border rounded-xl">
+            
+            <form id="booking-form" class="space-y-4">
+                <input type="text" required placeholder="Full Name" class="w-full p-3 border rounded-xl">
+                <input type="date" required class="w-full p-3 border rounded-xl">
                 <button type="submit" class="w-full bg-[#1a4d41] text-white py-4 rounded-xl font-bold">Confirm Booking</button>
             </form>
+        </div>
+
+        <div id="modal-success-content" class="hidden text-center py-10">
+            <h3 class="text-2xl font-bold text-orange-500 mb-2">Booking Confirmed!</h3>
+            <p class="text-gray-600">Check your email for the itinerary.</p>
         </div>
     </div>
 </div>
